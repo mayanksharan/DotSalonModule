@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,32 +15,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity
+public class MoneyMatters extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    static ArrayList<Data> mDataset;
     Context mContext = this;
-
-    public static ArrayList<Data> getDataset()
-    {
-        return mDataset;
-    }
+    CardView cv1,cv2,cv3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_money_matters);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -51,36 +38,39 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        setDataset();
-
-        TextView tv = (TextView) findViewById(R.id.top_button);
-
-        tv.setOnClickListener(new View.OnClickListener() {
+        cv1 = (CardView) findViewById(R.id.total_card);
+        cv2 = (CardView) findViewById(R.id.paid_card);
+        cv3 = (CardView) findViewById(R.id.pending_card);
+        cv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,MoneyMatters.class);
+                Intent intent = new Intent(mContext,CompletedServices.class);
+                intent.putExtra("indate",20160801);
+                intent.putExtra("enddate",99999999);
                 startActivity(intent);
             }
         });
 
+        cv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,CompletedServices.class);
+                intent.putExtra("indate",20160801);
+                intent.putExtra("enddate",20160831);
+                startActivity(intent);
+            }
+        });
 
-    }
+        cv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,CompletedServices.class);
+                intent.putExtra("indate",20160901);
+                intent.putExtra("enddate",99999999);
+                startActivity(intent);
+            }
+        });
 
-    private void setDataset()
-    {
-        mDataset = new ArrayList<>();
-        mDataset.add(new Data(1, "18:00 - 19:00","GUY 1",12345,200,false,20160625));
-        mDataset.add(new Data(2, "18:30 - 19:30","GUY 2",12345,100,false,20160626));
-        mDataset.add(new Data(3, "22:00 - 23:59","GUY 3",12345,150,false,20160625));
-        mDataset.add(new Data(4, "14:00 - 15:00","GUY 4",12345,170,true,20160625));
-        mDataset.add(new Data(5, "13:00 - 14:00","GUY 5",12345,90,false,20160624));
-        mDataset.add(new Data(6, "13:00 - 14:00","GUY 6",12345,120,false,20160626));
     }
 
     @Override
@@ -92,6 +82,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

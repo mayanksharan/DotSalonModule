@@ -21,12 +21,14 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src = "@drawable/ic_menu_camera"
                 android:layout_gravity = "right"
                 android:padding="10dp"
+                android:text = "Rs 200"
+                android:gravity="center"
                 android:id="@+id/top_button"/>
 
         </android.support.v7.widget.Toolbar>
