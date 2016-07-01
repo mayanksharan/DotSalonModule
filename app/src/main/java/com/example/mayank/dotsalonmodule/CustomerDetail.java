@@ -85,11 +85,27 @@ public class CustomerDetail extends AppCompatActivity
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (temp.pin * 10 == Integer.parseInt(s + "0")) {
-                        Log.e("VALUE SET", temp.name + "true");
-                        snackbarError("PIN Correctly Entered");
-                        ll.setBackgroundColor(Color.parseColor("#6600ff00"));
-                        temp.completed = true;
+                    if(s.length() == 5) {
+                        temp.tr++;
+                        if(temp.tr < 3) {
+                            if (temp.pin * 10 == Integer.parseInt(s + "0")) {
+                                Log.e("VALUE SET", temp.name + " true");
+                                snackbarError("PIN Correctly Entered");
+                                ll.setBackgroundColor(Color.parseColor("#6600ff00"));
+                                temp.completed = true;
+                            }
+                            else
+                            {
+                                Log.e("VALUE SET", temp.name + " false");
+                                snackbarError("Incorrect PIN");
+                            }
+                        }
+                        else
+                        {
+                            Log.e("VALUE SET", temp.name + " false");
+                            snackbarError("PIN Incorrectly Entered Thrice");
+                            ll.setBackgroundColor(Color.parseColor("#66ff0000"));
+                        }
                     }
                 }
 

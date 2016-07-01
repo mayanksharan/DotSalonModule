@@ -13,6 +13,7 @@ public class Data implements Serializable{
     int pin, price, id;
     long date;
     boolean completed;
+    int tr;
 
     Data(int i, String s, String n, int p, int pr, boolean c,long d)
     {
@@ -23,6 +24,7 @@ public class Data implements Serializable{
         completed = c;
         date = d;
         id = i;
+        tr = 0;
     }
 
     public String getDate()
